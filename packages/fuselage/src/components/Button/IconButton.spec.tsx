@@ -13,9 +13,11 @@ describe('[IconButton Component]', () => {
 		it('_IconButtonWithBadge', () => {
 			render(<_IconButtonWithBadge />);
 		});
+
 		it('_IconButtonAvatarWithBadge', () => {
 			render(<_IconButtonAvatarWithBadge />);
 		});
+
 		it('_IconButtonWithDot', () => {
 			render(<_IconButtonWithDot />);
 		});
@@ -36,5 +38,17 @@ describe('[IconButton Component]', () => {
 		const { container } = render(<IconButton icon='balloon' aria-label='balloon, 2 unread messages' badge={<Badge>2</Badge>} />);
 		expect(screen.getByRole('button', { name: 'balloon, 2 unread messages' })).toBeInTheDocument();
 		expect(container.querySelector('.rcx-button__badge')).toHaveAttribute('aria-hidden', 'true');
+	});
+
+	it.each([true, false])('should expose pressed=%s to assistive technology', (pressed) => {
+		render(<IconButton icon='balloon' aria-label='balloon' pressed={pressed} />);
+
+		expect(screen.getByRole('button', { name: 'balloon' })).toHaveAttribute('aria-pressed', String(pressed));
+	});
+
+	it('should omit aria-pressed when pressed is not provided', () => {
+		render(<IconButton icon='balloon' aria-label='balloon' />);
+
+		expect(screen.getByRole('button', { name: 'balloon' })).not.toHaveAttribute('aria-pressed');
 	});
 });

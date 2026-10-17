@@ -109,6 +109,7 @@ function IconButton({
 			rcx-button--square
 			{...kindAndVariantProps}
 			{...getSizeClass()}
+			aria-pressed={pressed}
 			rcx-button--icon-pressed={pressed}
 			rcx-button--with-badge={Boolean(badge)}
 			{...props}
